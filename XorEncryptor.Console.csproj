@@ -9,6 +9,12 @@
         <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
         <!-- Enable UTF-8 console support -->
         <UseSystemResourceKeys>true</UseSystemResourceKeys>
+        <Version>1.0.0</Version>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+        <Authors>XOR Encryptor Team</Authors>
+        <Description>XOR Encryptor Console - Command-line tool for XOR encryption/decryption</Description>
+        <PackageProjectUrl>https://github.com/yourusername/xorencryptor</PackageProjectUrl>
     </PropertyGroup>
 
     <!-- Include only the necessary files -->

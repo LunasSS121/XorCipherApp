@@ -5,6 +5,12 @@
         <Nullable>enable</Nullable>
         <ApplicationManifest>app.manifest</ApplicationManifest>
         <AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+        <Version>1.0.0</Version>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <FileVersion>1.0.0.0</FileVersion>
+        <Authors>XOR Encryptor Team</Authors>
+        <Description>XOR Encryptor - GUI and Console applications for XOR encryption/decryption</Description>
+        <PackageProjectUrl>https://github.com/yourusername/xorencryptor</PackageProjectUrl>
     </PropertyGroup>
 
     <ItemGroup>
