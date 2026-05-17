@@ -1,0 +1,532 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:XorEncryptor.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        x:Class="XorEncryptor.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Width="1050"
+        Height="700"
+        MinWidth="1050"
+        MinHeight="700"
+        Background="#14151C"
+        Padding="10, 0, 10, 0"
+        FontFamily="Inter, Roboto, sans-serif"
+        WindowStartupLocation="CenterScreen"
+        Title="XOR Шифратор">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector="Border.panel">
+            <Setter Property="Background" Value="#181A22" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="BorderBrush" Value="#292D3E" />
+            <Setter Property="BorderThickness" Value="1" />
+        </Style>
+
+        <Style Selector="Button.tab">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="#94A3B8" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Medium" />
+        </Style>
+
+        <Style Selector="Button.tab.active">
+            <Setter Property="Foreground" Value="#3B82F6" />
+        </Style>
+
+        <Style Selector="Border.tab-indicator">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Height" Value="3" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+
+        <Style Selector="Border.tab-indicator.active">
+            <Setter Property="Background" Value="#9C6A5C" />
+        </Style>
+
+        <Style Selector="Button.tab:pointerover /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="#F8FAFC"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+        </Style>
+
+        <Style Selector="Button.chip">
+            <Setter Property="Background" Value="#1E202B" />
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="12,8" />
+            <Setter Property="FontWeight" Value="Medium" />
+        </Style>
+
+        <Style Selector="Button.chip:pointerover /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="#F8FAFC"/>
+            <Setter Property="BorderBrush" Value="#3B82F6"/>
+        </Style>
+
+        <Style Selector="Button.mode">
+            <Setter Property="Background" Value="#1E202B" />
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16,10" />
+            <Setter Property="FontWeight" Value="Medium" />
+        </Style>
+
+        <Style Selector="Button.mode.active">
+            <Setter Property="Background" Value="#3B82F6" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+
+        <Style Selector="Button.mode:pointerover /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="#F8FAFC"/>
+            <Setter Property="BorderBrush" Value="#3B82F6"/>
+        </Style>
+
+        <Style Selector="Button.mode.active:pointerover /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="#F8FAFC"/>
+            <Setter Property="BorderBrush" Value="rgb(19, 90, 206)"/>
+            <Setter Property="Background" Value="rgb(19, 90, 206)"/>
+        </Style>
+
+        <Style Selector="Button.primary">
+            <Setter Property="Background" Value="#3B82F6" />
+            <Setter Property="Foreground" Value="#FFFFFF" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="0,16" />
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+
+        <Style Selector="Button.primary:pointerover /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="#F8FAFC"/>
+            <Setter Property="BorderBrush" Value="rgb(19, 90, 206)"/>
+            <Setter Property="Background" Value="rgb(19, 90, 206)"/>
+        </Style>
+
+        <!-- Disabled state for primary button while busy -->
+        <Style Selector="Button.primary:disabled /template/ ContentPresenter">
+            <Setter Property="Background" Value="#2D4A7A"/>
+            <Setter Property="Foreground" Value="#64748B"/>
+        </Style>
+
+        <Style Selector="TextBox.field">
+            <Setter Property="Background" Value="#1E202B" />
+            <Setter Property="Foreground" Value="#F8FAFC" />
+            <Setter Property="CaretBrush" Value="#F8FAFC" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="16,12" />
+        </Style>
+
+        <Style Selector="TextBox.field:pointerover /template/ Border">
+            <Setter Property="Background" Value="#1E202B" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+
+        <Style Selector="TextBox.field:focus /template/ Border">
+            <Setter Property="Background" Value="#12131A" />
+            <Setter Property="BorderBrush" Value="#334155" />
+            <Setter Property="CornerRadius" Value="8" />
+        </Style>
+
+        <Style Selector="Border.dropzone">
+            <Setter Property="Background" Value="#12141C" />
+            <Setter Property="BorderBrush" Value="#475569" />
+            <Setter Property="BorderThickness" Value="2" />
+            <Setter Property="CornerRadius" Value="12" />
+        </Style>
+
+        <Style Selector="CheckBox">
+            <Setter Property="CornerRadius" Value="6"/>
+        </Style>
+
+        <Style Selector="CheckBox:unchecked /template/ Border#NormalRectangle">
+            <Setter Property="BorderBrush" Value="#94A3B8"/>
+        </Style>
+
+        <Style Selector="CheckBox:checked /template/ Border#NormalRectangle">
+            <Setter Property="BorderBrush" Value="#3B82F6"/>
+            <Setter Property="Background" Value="#3B82F6"/>
+        </Style>
+
+        <Style Selector="CheckBox:checked:pointerover /template/ Border#NormalRectangle">
+            <Setter Property="BorderBrush" Value="rgb(19, 90, 206)"/>
+            <Setter Property="Background" Value="rgb(19, 90, 206)"/>
+        </Style>
+
+        <Style Selector="CheckBox:unchecked:pointerover /template/ Border#NormalRectangle">
+            <Setter Property="BorderBrush" Value="#475569"/>
+        </Style>
+
+        <Style Selector="CheckBox:pointerover /template/ ContentPresenter">
+            <Setter Property="Foreground" Value="#94A3B8"/>
+        </Style>
+
+        <!-- Progress bar accent colour -->
+        <Style Selector="ProgressBar /template/ Border#PART_Indicator">
+            <Setter Property="Background" Value="#3B82F6"/>
+        </Style>
+    </Window.Styles>
+
+    <Grid>
+        <Grid Margin="24">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <!-- ── Header ──────────────────────────────────────────────────── -->
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,20">
+                <StackPanel Spacing="10" Orientation="Horizontal">
+                    <TextBlock Text="XOR Шифратор"
+                               FontSize="20"
+                               FontWeight="SemiBold"
+                               Foreground="#F8FAFC" />
+                    <TextBlock Text="Инструмент шифрования"
+                               FontSize="14"
+                               Foreground="#94A3B8"
+                               VerticalAlignment="Center"
+                               Padding="0,0,0,6"/>
+                </StackPanel>
+
+                <Button Grid.Column="1"
+                        Command="{Binding OpenGuideCommand}"
+                        Classes="chip">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Path Width="18" Height="18" Stretch="Uniform" Fill="#94A3B8"
+                              Data="M10 0C4.48 0 0 4.48 0 10C0 15.52 4.48 20 10 20C15.52 20 20 15.52 20 10C20 4.48 15.52 0 10 0ZM11 17H9V15H11M13.07 9.25L12.17 10.17C11.45 10.9 11 11.5 11 13H9V12.5C9 11.4 9.45 10.4 10.17 9.67L11.41 8.41C11.78 8.05 12 7.55 12 7C12 5.9 11.1 5 10 5C8.9 5 8 5.9 8 7H6C6 4.79 7.79 3 10 3C12.21 3 14 4.79 14 7C14 7.88 13.64 8.68 13.07 9.25Z"/>
+                        <TextBlock Text="Справка" VerticalAlignment="Center" />
+                    </StackPanel>
+                </Button>
+            </Grid>
+
+            <!-- ── Main columns ────────────────────────────────────────────── -->
+            <Grid Grid.Row="1" ColumnDefinitions="1.9*,*" ColumnSpacing="20">
+
+                <!-- Left panel: Input / Output -->
+                <Border Classes="panel" Padding="20">
+                    <Grid RowDefinitions="Auto,Auto,*">
+                        <TextBlock Text="Ввод и вывод"
+                                   FontSize="22"
+                                   FontWeight="SemiBold"
+                                   Foreground="#F8FAFC" />
+
+                        <!-- Tabs -->
+                        <StackPanel Grid.Row="1" Margin="0,16,0,16" Orientation="Horizontal" Spacing="10">
+                            <StackPanel Spacing="0">
+                                <Button Command="{Binding ShowTextModeCommand}"
+                                        Classes="tab"
+                                        Classes.active="{Binding IsTextMode}">
+                                    <TextBlock Text="Текст" />
+                                </Button>
+                                <Border Classes="tab-indicator"
+                                        Classes.active="{Binding IsTextMode}" />
+                            </StackPanel>
+
+                            <StackPanel Spacing="0">
+                                <Button Command="{Binding ShowFileModeCommand}"
+                                        Classes="tab"
+                                        Classes.active="{Binding IsFileMode}">
+                                    <TextBlock Text="Файл" />
+                                </Button>
+                                <Border Classes="tab-indicator"
+                                        Classes.active="{Binding IsFileMode}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <!-- Text mode content -->
+                        <Grid Grid.Row="2"
+                              IsVisible="{Binding IsTextMode}"
+                              RowDefinitions="Auto,*,Auto,*"
+                              RowSpacing="8">
+                            <TextBlock Grid.Row="0"
+                                       Text="Входной текст"
+                                       FontWeight="Medium"
+                                       Foreground="#94A3B8" />
+                            <TextBox Grid.Row="1"
+                                     Classes="field"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalAlignment="Stretch"
+                                     MinHeight="100"
+                                     Text="{Binding InputText, Mode=TwoWay}" />
+
+                            <Grid Grid.Row="2" ColumnDefinitions="*,Auto" ColumnSpacing="12">
+                                <TextBlock Text="Выходной текст"
+                                           FontWeight="Medium"
+                                           Foreground="#94A3B8"
+                                           VerticalAlignment="Center" />
+                                <Button Grid.Column="1"
+                                        Click="CopyOutput_OnClick"
+                                        Classes="chip">
+                                    <TextBlock Text="Копировать" />
+                                </Button>
+                            </Grid>
+
+                            <TextBox Grid.Row="3"
+                                     x:Name="OutputTextBox"
+                                     Classes="field"
+                                     AcceptsReturn="True"
+                                     TextWrapping="Wrap"
+                                     VerticalAlignment="Stretch"
+                                     IsReadOnly="True"
+                                     MinHeight="100"
+                                     FontFamily="Cascadia Code"
+                                     Foreground="#34D399"
+                                     FontWeight="SemiBold"
+                                     Text="{Binding OutputText}" />
+                        </Grid>
+
+                        <!-- File mode content -->
+                        <Border Grid.Row="2"
+                                Classes="dropzone"
+                                Padding="28"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                IsVisible="{Binding IsFileMode}">
+                            <StackPanel Spacing="10" HorizontalAlignment="Center">
+                                <Path Width="56" Height="56" Stretch="Uniform" Fill="#3B82F6"
+                                      Data="M32.6667 21V30.3333H23.3333V21H16.3333L28 9.33333L39.6667 21H32.6667ZM45.15 14.0933C43.5633 6.04333 36.4933 0 28 0C21.2567 0 15.4 3.82667 12.5067 9.42667C5.46 10.1733 0 16.1233 0 23.3333C0 31.0567 6.27667 37.3333 14 37.3333H44.3333C50.7733 37.3333 56 32.1067 56 25.6667C56 19.5067 51.2167 14.5133 45.15 14.0933Z"/>
+                                <TextBlock Text="Перетащите файл сюда"
+                                           FontSize="16"
+                                           Foreground="#F8FAFC"
+                                           FontWeight="SemiBold"
+                                           HorizontalAlignment="Center" />
+                                <Button Click="SelectFile_OnClick"
+                                        Classes="chip"
+                                        HorizontalAlignment="Center">
+                                    <TextBlock Text="Или выберите его"
+                                               FontSize="16"
+                                               Foreground="#F8FAFC"
+                                               FontWeight="SemiBold" />
+                                </Button>
+                                <TextBlock Text="{Binding SelectedFileName}"
+                                           HorizontalAlignment="Center"
+                                           TextAlignment="Center"
+                                           Foreground="#64748B"
+                                           FontWeight="Medium"
+                                           FontSize="14" />
+                                <TextBlock Text="Поддерживаются файлы любого формата"
+                                           HorizontalAlignment="Center"
+                                           Foreground="#64748B"
+                                           FontSize="14"
+                                           FontWeight="Medium" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+
+                <!-- Right panel: Settings -->
+                <Border Grid.Column="1"
+                        Classes="panel"
+                        Padding="24">
+                    <!--
+                        Row 0: заголовок
+                        Row 1: блок ключа
+                        Row 2: режим операции
+                        Row 3: статус + прогресс  ← новые контролы
+                        Row 4: кнопка ОБРАБОТАТЬ
+                    -->
+                    <Grid RowDefinitions="Auto,Auto,Auto,*,Auto">
+
+                        <TextBlock Text="Настройки"
+                                   FontSize="20"
+                                   FontWeight="SemiBold"
+                                   Foreground="#F8FAFC" />
+
+                        <!-- Key block -->
+                        <Border Grid.Row="1"
+                                Margin="0,18,0,18"
+                                Background="#12131A"
+                                BorderBrush="#292D3E"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="16">
+                            <StackPanel Spacing="10">
+                                <TextBlock Text="Ключ шифрования"
+                                           FontWeight="Medium"
+                                           Foreground="#94A3B8"
+                                           FontSize="14" />
+                                <TextBox Classes="field"
+                                         PasswordChar="•"
+                                         RevealPassword="{Binding ShowKey}"
+                                         Text="{Binding EncryptionKey, Mode=TwoWay}" />
+                                <CheckBox Content="Показать ключ"
+                                          Foreground="#94A3B8"
+                                          FontWeight="Medium"
+                                          IsChecked="{Binding ShowKey, Mode=TwoWay}" />
+                            </StackPanel>
+                        </Border>
+
+                        <!-- Mode buttons -->
+                        <StackPanel Grid.Row="2" Spacing="12">
+                            <TextBlock Text="Режим операции"
+                                       FontWeight="Medium"
+                                       FontSize="14"
+                                       Foreground="#94A3B8" />
+                            <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                                <Button Command="{Binding SelectEncryptModeCommand}"
+                                        Classes="mode"
+                                        Classes.active="{Binding IsEncryptMode}">
+                                    <TextBlock Text="Зашифровать"
+                                               HorizontalAlignment="Center" />
+                                </Button>
+                                <Button Grid.Column="1"
+                                        Command="{Binding SelectDecryptModeCommand}"
+                                        Classes="mode"
+                                        Classes.active="{Binding IsDecryptMode}">
+                                    <TextBlock Text="Расшифровать"
+                                               HorizontalAlignment="Center" />
+                                </Button>
+                            </Grid>
+                        </StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════
+                            Row 3 — Status message + progress bar
+                            ══════════════════════════════════════════
+                        -->
+                        <StackPanel Grid.Row="3"
+                                    VerticalAlignment="Bottom"
+                                    Margin="0,16,0,16"
+                                    Spacing="10">
+
+                            <!-- Status text: only visible when non-empty -->
+                            <TextBlock Text="{Binding StatusMessage}"
+                                       TextWrapping="Wrap"
+                                       FontSize="13"
+                                       Foreground="#94A3B8"
+                                       IsVisible="{Binding StatusMessage,
+                                           Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+                            <!--
+                                Progress bar:
+                                  • Visible only while IsBusy = true
+                                  • IsIndeterminate when processing text (no byte-level progress)
+                                  • Value bound to ProgressValue (0–100) for file mode
+                            -->
+                            <ProgressBar Minimum="0"
+                                         Maximum="100"
+                                         Value="{Binding ProgressValue}"
+                                         IsVisible="{Binding IsBusy}"
+                                         IsIndeterminate="{Binding IsTextMode}"
+                                         Height="6"
+                                         CornerRadius="3" />
+                        </StackPanel>
+
+                        <!--
+                            ══════════════════════════════════════════
+                            Row 4 — Action button
+                            ══════════════════════════════════════════
+                            Command    → ProcessCommand (with CanExecute guard)
+                            IsEnabled  → mirrors CanExecute via the command itself;
+                                         explicit binding is redundant but adds clarity
+                        -->
+                        <Button Grid.Row="4"
+                                Classes="primary"
+                                Command="{Binding ProcessCommand}"
+                                HorizontalAlignment="Stretch">
+                            <TextBlock Text="ОБРАБОТАТЬ"
+                                       HorizontalAlignment="Center" />
+                        </Button>
+
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+
+        <!-- ── Guide overlay ─────────────────────────────────────────────── -->
+        <Border IsVisible="{Binding IsGuideOpen}"
+                Background="#aa000000"
+                Margin="-10, 0">
+            <Grid Margin="0">
+                <Border Classes="panel"
+                        Width="900"
+                        MaxHeight="650"
+                        Padding="25,20"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                    <Grid RowDefinitions="Auto,*,Auto">
+                        <Grid ColumnDefinitions="*,Auto" Margin="0,0,0,16">
+                            <TextBlock Text="Руководство пользователя"
+                                       FontSize="20"
+                                       FontWeight="SemiBold"
+                                       Foreground="#F8FAFC"/>
+                            <Button Grid.Column="1"
+                                    Command="{Binding CloseGuideCommand}"
+                                    Classes="chip">
+                                <TextBlock Text="Закрыть"/>
+                            </Button>
+                        </Grid>
+
+                        <ScrollViewer Grid.Row="1">
+                            <StackPanel Spacing="18">
+                                <TextBlock Text="Программа шифрует и расшифровывает текст или файлы с помощью ключа. Доступны два режима: текст и файл."
+                                           TextWrapping="Wrap"
+                                           FontSize="16"
+                                           Foreground="#F8FAFC"
+                                           HorizontalAlignment="Center"/>
+                                <Border Classes="panel" Padding="16">
+                                    <StackPanel Spacing="10">
+                                        <TextBlock Text="Общий порядок работы"
+                                                   FontSize="18"
+                                                   FontWeight="SemiBold"
+                                                   Foreground="#F8FAFC"/>
+                                        <TextBlock Text="1. Выберите режим (Текст или Файл)" FontSize="16" Foreground="#94A3B8" TextWrapping="Wrap"/>
+                                        <TextBlock Text="2. Введите текст или выберите файл"  FontSize="16" Foreground="#94A3B8" TextWrapping="Wrap"/>
+                                        <TextBlock Text="3. Укажите ключ шифрования"          FontSize="16" Foreground="#94A3B8" TextWrapping="Wrap"/>
+                                        <TextBlock Text="4. Выберите действие: Зашифровать или Расшифровать" FontSize="16" Foreground="#94A3B8" TextWrapping="Wrap"/>
+                                        <TextBlock Text="5. Нажмите «Обработать»"             FontSize="16" Foreground="#94A3B8" TextWrapping="Wrap"/>
+                                        <TextBlock Text="6. При необходимости скопируйте результат" FontSize="16" Foreground="#94A3B8" TextWrapping="Wrap"/>
+                                    </StackPanel>
+                                </Border>
+                                <Grid ColumnDefinitions="*,*" ColumnSpacing="16">
+                                    <Border Classes="panel" Padding="16">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock Text="Режим «Текст»" FontSize="18" FontWeight="SemiBold" Foreground="#F8FAFC" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="Введите или вставьте текст в поле ввода. Результат появится в блоке «Выходной текст»."
+                                                       FontSize="16" Foreground="#94A3B8" TextWrapping="Wrap" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Grid.Column="1" Classes="panel" Padding="16">
+                                        <StackPanel Spacing="8">
+                                            <TextBlock Text="Режим «Файл»" FontSize="18" FontWeight="SemiBold" Foreground="#F8FAFC" HorizontalAlignment="Center"/>
+                                            <TextBlock Text="Выберите файл через кнопку загрузки. Программа выдаст результат."
+                                                       FontSize="16" Foreground="#94A3B8" TextWrapping="Wrap" TextAlignment="Center"/>
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </StackPanel>
+                        </ScrollViewer>
+
+                        <Border Grid.Row="2"
+                                Margin="0,16,0,0"
+                                Background="#12131A"
+                                BorderBrush="#292D3E"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                Padding="12">
+                            <TextBlock Text="Ключ должен совпадать с исходным. Без него расшифровка невозможна."
+                                       TextWrapping="Wrap"
+                                       TextAlignment="Center"
+                                       FontWeight="SemiBold"
+                                       FontSize="18"
+                                       Foreground="#F8FAFC"/>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>
